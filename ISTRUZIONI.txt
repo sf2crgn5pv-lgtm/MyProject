@@ -1,0 +1,63 @@
+PAOLO SPESE - AGGIORNAMENTO IMPORTAZIONE EXCEL
+
+CONTENUTO
+- index.html, styles.css, app.js, accounts.js: applicazione aggiornata
+- manifest.webmanifest, sw.js e icons: se disponibili nella cartella di origine
+
+PRIMA DI INSTALLARE
+1. Apri la versione attuale di Paolo Spese.
+2. Vai in Impostazioni ed esporta un Backup JSON completo.
+3. Conserva il backup in iCloud Drive.
+4. Sostituisci i file dell'app con quelli di questo pacchetto, mantenendo la stessa cartella e gli stessi nomi.
+5. Riapri Paolo Spese in Safari. Non cancellare dati sito, cronologia o archivio del browser.
+
+IMPORTAZIONE
+1. Vai in Impostazioni > Importa movimenti da Excel.
+2. Seleziona Movi.xlsx.
+3. Controlla l'anteprima e conferma. I duplicati vengono esclusi e le righe vuote ignorate.
+4. Le righe Check=FALSE restano Programmate e non entrano nei totali.
+5. Quando modifichi un movimento programmato, attiva la casella Contabilizzato per includerlo nei totali.
+
+MAPPATURA CONTI
+- Mediolanum e PayPal -> Conto corrente principale
+- Revolut e Fidaty Oro -> Conto corrente Revolut
+- Ticket Restaurant -> Conto Buoni Pasto, come entrata Buoni pasto
+
+NOTE TECNICHE
+- I movimenti già presenti senza campo checked sono trattati come contabilizzati.
+- L'importazione aggiunge dati e non sostituisce movimenti esistenti.
+- Il lettore XLSX usa le API ZIP/DecompressionStream del browser; su Safari aggiornato dovrebbe essere disponibile. Se il browser non supporta deflate-raw, esporta il foglio in CSV e contattami per la variante CSV.
+- L'importazione assegna importo verificato se presente, altrimenti Movimento; l'importo viene normalizzato positivo e il tipo viene ricavato dal segno originale.
+
+
+AGGIORNAMENTO SALDI REALI
+Apri "I miei conti". Per ogni conto inserisci nel campo "Imposta saldo reale attuale"
+l'importo che leggi oggi nell'app della banca/carta e premi "Salva saldo reale".
+Il valore diventa il saldo di partenza alla data odierna. I movimenti contabilizzati
+con data successiva alla data di aggiornamento verranno sommati o sottratti
+automaticamente. I movimenti programmati e quelli storici non incidono sul saldo
+reale appena confermato, evitando doppi conteggi.
+
+
+AGGIORNAMENTO V3
+- Gli importi sono formattati sempre con due decimali e virgola italiana.
+- Il saldo in Dashboard è il totale dei saldi dei conti, escluso il conto Buoni Pasto.
+- Il totale considera il saldo reale impostato per ciascun conto e i movimenti contabilizzati successivi alla relativa data di aggiornamento.
+- Nel registro Movimenti è disponibile l'ordinamento per data crescente o decrescente.
+
+
+CORREZIONE FORMATO IMPORTI v4
+La formattazione degli importi è stata resa esplicita: migliaia con punto,
+decimali con virgola e due cifre. Esempi: 4.267,76 € e 1.199,13 €.
+La cache del service worker è stata aggiornata per caricare i file corretti.
+Dopo la sostituzione, chiudere e riaprire la pagina in Koder/Safari.
+
+
+AGGIORNAMENTO ANALISI CONTI v5
+Aggiunta la voce "Analisi conti" nel menu.
+La sezione consente di analizzare un singolo conto e confrontare tutti i conti,
+con filtri per data e stato dei movimenti. Mostra saldo attuale, entrate, uscite,
+saldo netto del periodo, uscite per categoria, riepilogo mensile e movimenti di riferimento.
+I movimenti programmati sono esclusi di default; possono essere inclusi dal filtro.
+Il saldo patrimoniale nel confronto esclude il conto Buoni Pasto.
+Non è necessario reimportare il file Excel. Non cancellare i dati del browser.

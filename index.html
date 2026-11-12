@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#173b32">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <title>Paolo Spese</title>
+
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="./styles.css?v=budget1">
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div>
+        <div class="eyebrow">GESTIONE PERSONALE</div>
+        <h1>Paolo Spese</h1>
+    </div>
+    <button id="exportBtn" class="ghost">Backup</button>
+</header>
+
+<main>
+
+    <section id="page-dashboard" class="summary-grid app-page">
+
+        <article class="summary-card balance">
+            <span>Saldo complessivo dei conti</span>
+            <strong id="balance">€ 0,00</strong>
+            <small id="periodLabel">Tutti i movimenti</small>
+        </article>
+
+        <article class="summary-card">
+            <span>Entrate</span>
+            <strong id="income">€ 0,00</strong>
+        </article>
+
+        <article class="summary-card">
+            <span>Uscite</span>
+            <strong id="expense">€ 0,00</strong>
+        </article>
+
+        <div class="dashboard-recent">
+            <div class="section-heading dashboard-recent-heading">
+                <div>
+                    <div class="eyebrow">ATTIVITÀ RECENTE</div>
+                    <h2>Ultimi movimenti</h2>
+                </div>
+                <button type="button" class="ghost" onclick="showPage('movements')">Vai ai movimenti</button>
+            </div>
+            <div id="recentMovements" class="recent-movements" aria-live="polite">
+                <p class="muted">Caricamento movimenti...</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="page-movements-form" class="panel app-page">
+
+        <div class="section-heading">
+            <div>
+                <div class="eyebrow">NUOVO MOVIMENTO</div>
+                <h2>Registra un'operazione</h2>
+            </div>
+        </div>
+
+        <form id="movementForm" class="form-grid">
+
+            <label>
+                Tipo
+                <select id="type">
+                    <option value="expense">Uscita</option>
+                    <option value="income">Entrata</option>
+                </select>
+            </label>
+
+            <label>
+                Importo (€)
+                <input id="amount" type="number"
+                       min="0.01" step="0.01"
+                       placeholder="0,00" required>
+            </label>
+
+            <label>
+                Descrizione
+                <input id="description" type="text"
+                       maxlength="80"
+                       placeholder="Es. Spesa supermercato"
+                       required>
+            </label>
+
+            <label>
+                Categoria
+                <select id="category"></select>
+            </label>
+
+            <label>
+                Data
+                <input id="date" type="date" required>
+            </label>
+
+            <label>
+                Metodo di pagamento
+                <select id="payment">
+                    <option>Contanti</option>
+                    <option>Bancomat</option>
+                    <option>Carta di credito</option>
+                    <option>Bonifico</option>
+                    <option>Altro</option>
+                </select>
+            </label>
+
+            <label>
+                Conto
+                <select id="movementAccount">
+                    <option value="conto-principale">Conto corrente principale</option>
+                </select>
+            </label>
+
+            <label class="status-field">
+                <span>Stato del movimento</span>
+                <span class="status-check"><input id="movementChecked" type="checkbox" checked> Contabilizzato</span>
+            </label>
+
+            <label class="wide">
+                Note
+                <input id="notes" type="text"
+                       maxlength="180"
+                       placeholder="Note facoltative">
+            </label>
+
+            <div class="wide form-footer">
+                <button class="primary" type="submit">
+                    Aggiungi movimento
+                </button>
+                <span id="formMessage"></span>
+            </div>
+
+        </form>
+
+    </section>
+
+    <section id="page-movements-list" class="panel app-page">
+
+        <div class="section-heading list-heading">
+            <div>
+                <div class="eyebrow">REGISTRO</div>
+                <h2>Movimenti</h2>
+            </div>
+
+            <button id="newMovementBtn" type="button" class="primary" onclick="openNewMovement()">＋ Nuovo movimento</button>
+
+            <div class="filters movement-filters">
+                <input id="movementSearch" type="search" placeholder="Cerca descrizione o note" aria-label="Cerca movimenti">
+                <select id="movementTypeFilter" aria-label="Filtra per tipo">
+                    <option value="">Entrate e uscite</option>
+                    <option value="income">Solo entrate</option>
+                    <option value="expense">Solo uscite</option>
+                </select>
+                <select id="movementCategoryFilter" aria-label="Filtra per categoria">
+                    <option value="">Tutte le categorie</option>
+                </select>
+                <input id="movementFrom" type="date" aria-label="Dalla data">
+                <input id="movementTo" type="date" aria-label="Alla data">
+                <input id="monthFilter" type="month" aria-label="Mese">
+                <select id="movementSort" aria-label="Ordina movimenti per data">
+                    <option value="desc" selected>Data: più recenti</option>
+                    <option value="asc">Data: meno recenti</option>
+                </select>
+                <button id="clearFilter" class="ghost" type="button">Azzera filtri</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Descrizione</th>
+                        <th>Categoria</th>
+                        <th>Metodo</th>
+                        <th>Stato</th>
+                        <th class="num">Importo</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+
+                <tbody id="movementRows">
+                    <tr>
+                        <td colspan="7" class="empty">
+                            Non ci sono ancora movimenti.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p id="movementCount" class="movement-count" aria-live="polite"></p>
+
+    </section>
+
+    <section id="page-statistics" class="panel app-page">
+
+        <div class="section-heading">
+            <div>
+                <div class="eyebrow">ANALISI</div>
+                <h2>Uscite per categoria</h2>
+            </div>
+        </div>
+
+        <div id="categoryBreakdown" class="breakdown">
+            <p class="muted">
+                Registra alcune uscite per visualizzare il riepilogo.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="page-settings" class="panel privacy-note app-page">
+
+        <strong>🔒 I tuoi dati restano sul dispositivo</strong>
+
+        <p>
+            I movimenti sono archiviati nel browser di questo dispositivo.
+            Effettua periodicamente un backup.
+            Per trasferire i dati tra iPhone e iPad
+            utilizza le funzioni di esportazione e ripristino.
+        </p>
+
+        <div id="backupStatus" class="backup-status" role="status" aria-live="polite">
+            Controllo dello stato del backup...
+        </div>
+
+        <div class="import-excel-panel">
+            <h3>Importa movimenti da Excel</h3>
+            <p>Seleziona il file Movi.xlsx. Prima di registrare i dati vedrai un riepilogo, i duplicati e i movimenti programmati.</p>
+            <label class="ghost file-label">
+                Seleziona file Excel (.xlsx)
+                <input id="excelFile" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            </label>
+            <div id="excelPreview" class="excel-preview" aria-live="polite"></div>
+        </div>
+
+        <div class="backup-actions">
+
+            <button id="csvBtn" class="ghost">
+                Esporta CSV
+            </button>
+
+            <label class="ghost file-label">
+                Ripristina backup
+                <input id="importFile" type="file"
+                       accept="application/json">
+            </label>
+
+        </div>
+
+    </section>
+
+    <section id="page-budget" class="panel app-page budget-page">
+        <div class="section-heading">
+            <div>
+                <div class="eyebrow">PIANIFICAZIONE FINANZIARIA</div>
+                <h2>Budget mensile</h2>
+                <p class="muted budget-intro">Imposta un limite di spesa per ogni categoria e controlla l'andamento delle uscite contabilizzate.</p>
+            </div>
+        </div>
+
+        <div class="budget-toolbar">
+            <label>Mese da visualizzare
+                <input id="budgetMonth" type="month">
+            </label>
+        </div>
+
+        <div class="budget-editor">
+            <h3>Imposta un budget</h3>
+            <form id="budgetForm" class="budget-form">
+                <label>Categoria
+                    <select id="budgetCategory"></select>
+                </label>
+                <label>Limite mensile (€)
+                    <input id="budgetAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required>
+                </label>
+                <button type="submit" class="primary">Salva budget</button>
+                <button type="button" id="budgetCancelEdit" class="ghost" hidden>Annulla modifica</button>
+            </form>
+            <p id="budgetMessage" class="budget-message" aria-live="polite"></p>
+        </div>
+
+        <div id="budgetSummary" class="budget-summary" aria-live="polite"></div>
+
+        <div class="budget-section-heading">
+            <h3>Budget per categoria</h3>
+            <p class="muted">Sono conteggiate soltanto le uscite contabilizzate del mese selezionato.</p>
+        </div>
+        <div id="budgetCategoryList" class="budget-category-list"></div>
+
+        <div class="budget-section-heading">
+            <h3>Riepilogo annuale</h3>
+            <p class="muted">Confronto mensile tra limiti impostati e uscite contabilizzate.</p>
+        </div>
+        <div id="budgetYearSummary" class="budget-year-summary"></div>
+    </section>
+
+
+    <section id="page-account-analysis" class="panel app-page account-analysis-page">
+        <div class="section-heading">
+            <div>
+                <div class="eyebrow">ANALISI FINANZIARIA</div>
+                <h2>Analisi conti</h2>
+            </div>
+        </div>
+
+        <div class="account-analysis-filters">
+            <label>
+                Conto da analizzare
+                <select id="analysisAccount">
+                    <option value="">Caricamento conti...</option>
+                </select>
+            </label>
+            <label>
+                Dalla data
+                <input id="analysisFrom" type="date">
+            </label>
+            <label>
+                Alla data
+                <input id="analysisTo" type="date">
+            </label>
+            <label>
+                Stato movimenti
+                <select id="analysisStatus">
+                    <option value="accounted" selected>Solo contabilizzati</option>
+                    <option value="both">Contabilizzati e programmati</option>
+                    <option value="planned">Solo programmati</option>
+                </select>
+            </label>
+            <button id="analysisReset" type="button" class="ghost">Azzera filtri</button>
+        </div>
+
+        <div class="analysis-subheading">
+            <h3>Analisi del singolo conto</h3>
+            <p class="muted">Saldo attuale, entrate, uscite, categorie e andamento mensile.</p>
+        </div>
+        <div id="singleAccountAnalysis">
+            <p class="muted">Seleziona un conto per visualizzarne l'analisi.</p>
+        </div>
+
+        <div class="analysis-subheading">
+            <h3>Confronto di tutti i conti</h3>
+            <p class="muted">Il conto Buoni Pasto, se presente, è mostrato separatamente ed escluso dal saldo patrimoniale.</p>
+        </div>
+        <div id="accountsComparison" class="accounts-comparison">
+            <p class="muted">Caricamento confronto conti...</p>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    Paolo Spese · Versione 0.2
+</footer>
+
+
+<!-- ======================================
+     PAOLO SPESE - SEZIONE CONTI
+     ====================================== -->
+
+
+<!-- GESTIONE CONTI -->
+
+<section id="page-accounts" class="accounts-section app-page">
+
+    <div class="accounts-heading">
+        <div>
+            <h2>I miei conti</h2>
+            <p>Gestisci i tuoi conti correnti, le carte e la liquidità.</p>
+        </div>
+    </div>
+
+    <div id="accounts-list" class="accounts-list"></div>
+
+    <div class="account-form-panel">
+
+        <div class="account-form-heading">
+            <div class="account-form-icon">＋</div>
+            <div>
+                <h3>Aggiungi un nuovo conto</h3>
+                <p>Inserisci i dati del nuovo conto o della carta.</p>
+            </div>
+        </div>
+
+        <form id="account-form" class="account-form">
+
+            <div class="account-field account-field-name">
+                <label for="account-name">Nome del conto</label>
+                <input
+                    id="account-name"
+                    type="text"
+                    placeholder="Es. Conto principale"
+                    required
+                >
+            </div>
+
+            <div class="account-field">
+                <label for="account-type">Tipologia</label>
+                <select id="account-type">
+                    <option value="bank">Conto corrente</option>
+                    <option value="card">Carta</option>
+                    <option value="cash">Contanti</option>
+                </select>
+            </div>
+
+            <div class="account-field">
+                <label for="account-balance">Saldo iniziale (€)</label>
+                <input
+                    id="account-balance"
+                    type="number"
+                    step="0.01"
+                    value="0"
+                    placeholder="0,00"
+                >
+            </div>
+
+            <div class="account-form-actions">
+                <button type="submit" class="account-submit">
+                    ＋ Aggiungi conto
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+<script src="./accounts.js"></script>
+<script src="./app.js?v=budget1"></script>
+
+<!-- MENU PAOLO SPESE -->
+<nav id="main-navigation" class="main-navigation">
+    <div class="navigation-brand">PAOLO SPESE</div>
+
+    <button type="button" onclick="showPage('dashboard')">⌂ Dashboard</button>
+    <button type="button" onclick="showPage('accounts')">▣ I miei conti</button>
+    <button type="button" onclick="showPage('movements')">↔ Movimenti</button>
+    <button type="button" onclick="showPage('statistics')">▥ Statistiche</button>
+    <button type="button" onclick="showPage('account-analysis')">▤ Analisi conti</button>
+    <button type="button" onclick="showPage('budget')">◎ Budget</button>
+    <button type="button" onclick="showPage('settings')">⚙ Impostazioni</button>
+</nav>
+
+</body>
+</html>

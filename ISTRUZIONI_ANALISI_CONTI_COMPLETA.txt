@@ -1,0 +1,37 @@
+PAOLO SPESE - AGGIORNAMENTO COMPLETO ANALISI CONTI
+
+Questo pacchetto contiene tutti i file dell'applicazione coordinati:
+- index.html: voce menu e schermata Analisi conti
+- app.js: calcoli e rendering dell'analisi
+- accounts.js: navigazione verso la nuova sezione
+- styles.css: stile della nuova schermata
+- sw.js: cache aggiornata
+- manifest.webmanifest e icons: risorse PWA
+
+INSTALLAZIONE
+1. Effettua un backup dall'app e conserva il file in iCloud Drive.
+2. Estrai questo ZIP.
+3. Copia TUTTO il contenuto estratto nella cartella Paolo_Spese di Koder,
+   confermando la sostituzione dei file esistenti.
+4. Non eliminare dati del browser, IndexedDB o localStorage.
+5. Riapri l'app e aggiorna la pagina.
+
+NON reimportare Movi.xlsx: i movimenti già presenti vengono letti direttamente
+dall'archivio locale esistente.
+
+MENU
+La voce "Analisi conti" si trova subito sotto "Statistiche".
+
+FUNZIONI
+- Analisi del singolo conto: saldo attuale, entrate, uscite, saldo netto,
+  uscite per categoria, riepilogo mensile e movimenti di riferimento.
+- Confronto tra tutti i conti: saldo attuale, entrate/uscite del periodo,
+  netto e numero movimenti.
+- Filtri per conto, intervallo date e stato.
+- I movimenti programmati sono esclusi per impostazione predefinita.
+- Buoni Pasto sono esclusi dal saldo patrimoniale complessivo.
+
+NOTA
+I valori sono calcolati usando i movimenti già associati a un accountId.
+I movimenti preesistenti senza accountId non possono essere attribuiti
+automaticamente a un conto senza una regola certa.

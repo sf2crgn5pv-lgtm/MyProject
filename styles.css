@@ -1,0 +1,1894 @@
+
+/* =========================================
+   PAOLO SPESE - GRAFICA PROFESSIONALE
+   Versione 0.2
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --green-dark: #173b32;
+    --green: #24765b;
+    --green-light: #e5f3eb;
+    --blue: #e7effb;
+    --orange: #fff0df;
+    --red: #b94b45;
+    --background: #f2f5f4;
+    --white: #ffffff;
+    --text: #26352e;
+    --muted: #7c8a82;
+    --border: #e4eae6;
+    --shadow: 0 5px 20px rgba(25, 55, 40, 0.07);
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* INTESTAZIONE */
+
+.topbar {
+    background: linear-gradient(120deg, #173b32, #286c53);
+    color: white;
+    padding: 25px max(22px, calc((100% - 1180px)/2));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow);
+}
+
+.topbar h1 {
+    font-size: 27px;
+    margin: 5px 0 0;
+    font-weight: 750;
+    letter-spacing: -0.7px;
+}
+
+.topbar .eyebrow {
+    color: #b9d9c9;
+}
+
+.topbar .ghost {
+    color: white;
+    background: rgba(255,255,255,.13);
+    border: 1px solid rgba(255,255,255,.25);
+}
+
+/* CONTENITORE */
+
+main {
+    max-width: 1180px;
+    margin: 30px auto;
+    padding: 0 22px;
+}
+
+/* TITOLI */
+
+.eyebrow {
+    color: #789083;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+h2 {
+    font-size: 19px;
+    margin: 5px 0 0;
+    font-weight: 750;
+    letter-spacing: -.3px;
+}
+
+/* RIEPILOGO FINANZIARIO */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 17px;
+    margin-bottom: 22px;
+}
+
+.summary-card {
+    min-height: 120px;
+    padding: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 17px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.summary-card span {
+    color: #718078;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.summary-card strong {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -.7px;
+    color: var(--text);
+}
+
+.summary-card small {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.summary-card.balance {
+    background: linear-gradient(120deg, #173b32, #286c53);
+    border: none;
+}
+
+.summary-card.balance span,
+.summary-card.balance small {
+    color: #c3dfd0;
+}
+
+.summary-card.balance strong {
+    color: white;
+}
+
+.summary-card:nth-child(2) {
+    background: #e5f3eb;
+    border-color: #d5e9dd;
+}
+
+.summary-card:nth-child(2) strong {
+    color: #20734e;
+}
+
+.summary-card:nth-child(3) {
+    background: #fff0e8;
+    border-color: #f5dfd2;
+}
+
+.summary-card:nth-child(3) strong {
+    color: #bd624b;
+}
+
+/* PANNELLI */
+
+.panel {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+/* MODULO INSERIMENTO */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.form-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #52665b;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.form-grid input,
+.form-grid select,
+.filters input {
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 13px;
+    border: 1px solid #dce5df;
+    border-radius: 10px;
+    background: #fbfcfb;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.form-grid input:focus,
+.form-grid select:focus,
+.filters input:focus {
+    border-color: #559879;
+    box-shadow: 0 0 0 3px rgba(65, 145, 105, .12);
+    background: white;
+}
+
+.wide {
+    grid-column: 1 / -1;
+}
+
+.form-footer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* PULSANTI */
+
+button {
+    font-family: inherit;
+    transition: background .2s, transform .15s;
+}
+
+button:active {
+    transform: scale(.98);
+}
+
+.primary {
+    background: linear-gradient(120deg, #24765b, #398b69);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 21px;
+    font-weight: 750;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(36, 118, 91, .18);
+}
+
+.primary:hover {
+    background: #185b43;
+}
+
+.ghost {
+    background: #edf4ef;
+    border: 1px solid #dce8df;
+    color: #285540;
+    border-radius: 9px;
+    padding: 10px 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ghost:hover {
+    background: #dcebe1;
+}
+
+/* FILTRI */
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.filters input {
+    width: 160px;
+}
+
+/* TABELLA MOVIMENTI */
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+}
+
+thead {
+    background: #f1f6f3;
+}
+
+th {
+    padding: 14px 12px;
+    color: #66796e;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #edf1ee;
+    color: #405148;
+}
+
+tbody tr:hover {
+    background: #f7faf8;
+}
+
+td:nth-child(2) {
+    min-width: 160px;
+}
+
+.num {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.positive {
+    color: #168052;
+    font-weight: 800;
+}
+
+.negative {
+    color: #bd594e;
+    font-weight: 800;
+}
+
+.delete {
+    background: #fff0ed;
+    color: #bb554c;
+    border: none;
+    border-radius: 7px;
+    width: 28px;
+    height: 28px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background: #f9dcd6;
+}
+
+.empty,
+.muted {
+    text-align: center;
+    color: #87948c;
+    padding: 28px;
+}
+
+/* ANALISI CATEGORIE */
+
+.breakdown {
+    display: grid;
+    gap: 16px;
+}
+
+.break-row {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    align-items: center;
+    gap: 15px;
+    font-size: 13px;
+}
+
+.break-row strong {
+    color: #40564a;
+}
+
+.bar {
+    height: 11px;
+    background: #edf2ee;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #24765b, #78bb91);
+    border-radius: 20px;
+}
+
+/* PRIVACY E BACKUP */
+
+.privacy-note {
+    background: #f8faf8;
+    border-color: #e2ebe4;
+}
+
+.privacy-note > strong {
+    color: #245b43;
+    font-size: 14px;
+}
+
+.privacy-note p {
+    color: #6d7d73;
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 850px;
+}
+
+.backup-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.file-label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.file-label input {
+    display: none;
+}
+
+/* PIEDE PAGINA */
+
+footer {
+    text-align: center;
+    color: #89978f;
+    font-size: 11px;
+    padding: 15px;
+}
+
+/* TABLET E IPAD */
+
+@media (max-width: 900px) {
+
+    main {
+        padding: 0 16px;
+    }
+
+    .summary-grid {
+        gap: 11px;
+    }
+
+    .summary-card {
+        padding: 17px;
+    }
+
+    .summary-card strong {
+        font-size: 23px;
+    }
+
+}
+
+/* IPHONE */
+
+@media (max-width: 600px) {
+
+    .topbar {
+        padding: 20px 16px;
+    }
+
+    .topbar h1 {
+        font-size: 23px;
+    }
+
+    main {
+        margin: 17px auto;
+        padding: 0 11px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+    }
+
+    .summary-card {
+        min-height: 100px;
+        padding: 13px;
+        border-radius: 13px;
+    }
+
+    .summary-card.balance {
+        grid-column: 1 / -1;
+    }
+
+    .summary-card strong {
+        font-size: 21px;
+    }
+
+    .panel {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .form-grid label:nth-child(3),
+    .form-grid label.wide {
+        grid-column: 1 / -1;
+    }
+
+    .section-heading.list-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 13px;
+    }
+
+    .filters {
+        width: 100%;
+    }
+
+    .filters input {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .break-row {
+        grid-template-columns: 90px 1fr auto;
+        gap: 8px;
+        font-size: 11px;
+    }
+
+    th, td {
+        padding: 10px 7px;
+    }
+
+}
+
+
+/* ==========================================
+   PAOLO SPESE - GRAFICA GESTIONE CONTI
+   ========================================== */
+
+.accounts-section {
+    margin: 30px 0;
+}
+
+.accounts-heading {
+    margin-bottom: 20px;
+}
+
+.accounts-heading h2 {
+    margin: 0 0 6px;
+    color: #174c45;
+    font-size: 23px;
+}
+
+.accounts-heading p,
+.account-form-heading p {
+    margin: 0;
+    color: #788783;
+    font-size: 13px;
+}
+
+.account-form-panel {
+    margin-top: 25px;
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #e1eae7;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(20, 65, 55, 0.06);
+}
+
+.account-form-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 25px;
+}
+
+.account-form-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #e6f3ef;
+    color: #087f68;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.account-form-heading h3 {
+    margin: 0 0 5px;
+    color: #174c45;
+    font-size: 17px;
+}
+
+.account-form {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 18px;
+    align-items: end;
+}
+
+.account-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.account-field label {
+    color: #435b55;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.account-field input,
+.account-field select {
+    width: 100%;
+    min-height: 46px;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    border: 1px solid #d8e3df;
+    border-radius: 9px;
+    background: #fbfdfc;
+    color: #263d37;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.account-field input:focus,
+.account-field select:focus {
+    border-color: #168b73;
+    box-shadow: 0 0 0 3px rgba(22, 139, 115, 0.10);
+}
+
+.account-form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.account-submit {
+    min-height: 45px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 9px;
+    background: #087f68;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.account-submit:hover {
+    background: #066653;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+    .account-form-panel {
+        padding: 18px;
+    }
+
+    .account-form {
+        grid-template-columns: 1fr;
+    }
+
+    .account-form-actions {
+        grid-column: 1;
+    }
+
+    .account-submit {
+        width: 100%;
+    }
+}
+
+/* MENU LATERALE PAOLO SPESE */
+
+.main-navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 245px;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 28px 16px;
+    background: #174c45;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    z-index: 1000;
+}
+
+.navigation-brand {
+    color: white;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 10px 12px 30px;
+}
+
+.main-navigation button {
+    border: none;
+    border-radius: 9px;
+    padding: 14px;
+    background: transparent;
+    color: #e5f2ed;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.main-navigation button:hover,
+.main-navigation button.active {
+    background: #087f68;
+    color: white;
+}
+
+@media (max-width: 700px) {
+    .main-navigation {
+        width: 100%;
+        height: auto;
+        bottom: 0;
+        top: auto;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 8px;
+    }
+
+    .navigation-brand {
+        display: none;
+    }
+
+    .main-navigation button {
+        white-space: nowrap;
+        font-size: 12px;
+        padding: 12px 10px;
+    }
+}
+
+/* SPAZIO RISERVATO AL MENU */
+
+@media (min-width: 701px) {
+    body {
+        padding-left: 245px;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 700px) {
+    body {
+        padding-bottom: 75px;
+    }
+}
+
+
+/* UNIFORMITA' PULSANTI ESPORTAZIONE E RIPRISTINO */
+.backup-actions button,
+.backup-actions .file-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 18px;
+    border: 1px solid #dce8df;
+    border-radius: 10px;
+    background: #edf4ef;
+    color: #285540;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+/* STATO E PROMEMORIA BACKUP */
+.backup-status {
+    margin: 16px 0;
+    padding: 13px 15px;
+    border: 1px solid #dce8df;
+    border-radius: 10px;
+    background: #edf4ef;
+    color: #285540;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+.backup-status.is-warning {
+    border-color: #f0dfbd;
+    background: #fff8e9;
+    color: #805b20;
+}
+
+
+/* DASHBOARD - MOVIMENTI RECENTI */
+.dashboard-recent {
+    grid-column: 1 / -1;
+    min-width: 0;
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--white);
+    box-shadow: var(--shadow);
+}
+.dashboard-recent-heading {
+    margin-bottom: 12px;
+}
+.recent-movements {
+    display: flex;
+    flex-direction: column;
+}
+.recent-movement-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 13px 0;
+    border-top: 1px solid var(--border);
+}
+.recent-movement-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+.recent-movement-icon {
+    display: inline-flex;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 700;
+}
+.recent-movement-icon.is-income {
+    color: #20734e;
+    background: #e5f3eb;
+}
+.recent-movement-icon.is-expense {
+    color: #bd624b;
+    background: #fff0e8;
+}
+.recent-movement-description {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+.recent-movement-description strong {
+    overflow-wrap: anywhere;
+    font-size: 13px;
+}
+.recent-movement-description small {
+    color: var(--muted);
+    font-size: 11px;
+}
+.recent-movement-amount {
+    flex: 0 0 auto;
+    font-size: 13px;
+    white-space: nowrap;
+}
+.recent-movement-amount.positive { color: #20734e; }
+.recent-movement-amount.negative { color: #bd624b; }
+@media (max-width: 700px) {
+    .dashboard-recent { padding: 18px; }
+    .dashboard-recent-heading { align-items: flex-start; gap: 10px; }
+    .dashboard-recent-heading .ghost { padding: 10px 11px; font-size: 12px; }
+    .recent-movement-row { gap: 8px; }
+    .recent-movement-amount { font-size: 12px; }
+}
+
+/* REGISTRO MOVIMENTI - RICERCA E MODIFICA */
+.movement-filters { flex-wrap: wrap; justify-content: flex-end; }
+.movement-filters input[type="search"] { min-width: 210px; flex: 1 1 210px; }
+.movement-filters select, .movement-filters input[type="date"] { min-width: 135px; }
+.movement-count { margin: 12px 2px 0; color: #718078; font-size: 12px; }
+.movement-actions { white-space: nowrap; }
+.movement-actions .edit { border: 1px solid #dce8df; background: #edf4ef; color: #285540; border-radius: 7px; padding: 7px 9px; font-weight: 700; cursor: pointer; }
+.movement-actions .delete { margin-left: 5px; }
+@media (max-width: 760px) {
+  .movement-filters { justify-content: stretch; }
+  .movement-filters input, .movement-filters select { flex: 1 1 45%; min-width: 0; width: 100%; }
+}
+
+
+/* CORREZIONE ALLINEAMENTO MODULO MOVIMENTI */
+#movementForm.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    column-gap: 18px;
+    row-gap: 17px;
+    width: 100%;
+}
+#movementForm.form-grid > label {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+}
+#movementForm.form-grid > label > input,
+#movementForm.form-grid > label > select {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 52px;
+    min-height: 52px;
+    margin: 0;
+}
+#movementForm.form-grid > label > input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: center;
+}
+#movementForm.form-grid > .wide {
+    grid-column: 1 / -1;
+}
+@media (max-width: 700px) {
+    #movementForm.form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 13px;
+    }
+    #movementForm.form-grid > label:nth-child(3),
+    #movementForm.form-grid > label.wide,
+    #movementForm.form-grid > .wide {
+        grid-column: 1 / -1;
+    }
+}
+@media (max-width: 420px) {
+    #movementForm.form-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    #movementForm.form-grid > label {
+        grid-column: 1 / -1;
+    }
+}
+
+/* REGISTRO MOVIMENTI - IMPAGINAZIONE FILTRI */
+#page-movements-list .list-heading {
+    display: block;
+    width: 100%;
+}
+#page-movements-list .list-heading > div:first-child {
+    margin-bottom: 18px;
+}
+#page-movements-list .movement-filters {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(150px, 1fr));
+    gap: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: stretch;
+}
+#page-movements-list .movement-filters > * {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 44px;
+    min-height: 44px;
+    margin: 0;
+}
+#page-movements-list #movementSearch {
+    grid-column: span 2;
+}
+#page-movements-list .movement-filters select,
+#page-movements-list .movement-filters input[type="date"],
+#page-movements-list .movement-filters input[type="month"],
+#page-movements-list .movement-filters input[type="search"] {
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: #fff;
+    color: var(--text);
+    font: inherit;
+}
+#page-movements-list #clearFilter {
+    white-space: nowrap;
+    padding: 0 12px;
+}
+@media (max-width: 760px) {
+    #page-movements-list .movement-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+    #page-movements-list #movementSearch {
+        grid-column: 1 / -1;
+    }
+}
+@media (max-width: 420px) {
+    #page-movements-list .movement-filters {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    #page-movements-list .movement-filters > * {
+        grid-column: 1 / -1;
+    }
+}
+
+
+/* REGISTRO MOVIMENTI - FILTRI SEMPLIFICATI E ALLINEATI
+   Si mantiene un solo filtro temporale: il mese. */
+#page-movements-list #movementFrom,
+#page-movements-list #movementTo {
+    display: none !important;
+}
+#page-movements-list .movement-filters {
+    display: grid !important;
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+    grid-auto-flow: row;
+    gap: 12px;
+    align-items: center;
+    justify-content: stretch;
+    width: 100%;
+}
+#page-movements-list .movement-filters > * {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 48px;
+    min-height: 48px;
+    margin: 0;
+}
+#page-movements-list #movementSearch {
+    grid-column: 1 / 3;
+}
+#page-movements-list #movementTypeFilter {
+    grid-column: 3;
+}
+#page-movements-list #movementCategoryFilter {
+    grid-column: 1;
+}
+#page-movements-list #monthFilter {
+    grid-column: 2;
+}
+#page-movements-list #clearFilter {
+    grid-column: 3;
+    white-space: nowrap;
+    padding: 0 12px;
+}
+@media (max-width: 760px) {
+    #page-movements-list .movement-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+    #page-movements-list #movementSearch {
+        grid-column: 1 / -1;
+    }
+    #page-movements-list #movementTypeFilter { grid-column: 1; }
+    #page-movements-list #movementCategoryFilter { grid-column: 2; }
+    #page-movements-list #monthFilter { grid-column: 1; }
+    #page-movements-list #clearFilter { grid-column: 2; }
+}
+@media (max-width: 420px) {
+    #page-movements-list .movement-filters {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    #page-movements-list .movement-filters > * {
+        grid-column: 1 !important;
+    }
+}
+
+
+/* FIX DEFINITIVO FILTRI MOVIMENTI - GRIGLIA A DUE COLONNE */
+#page-movements-list .movement-filters {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto !important;
+    grid-auto-flow: row !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+#page-movements-list #movementFrom,
+#page-movements-list #movementTo {
+    display: none !important;
+}
+#page-movements-list .movement-filters > * {
+    box-sizing: border-box !important;
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+    justify-self: stretch !important;
+}
+#page-movements-list #movementSearch {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+}
+#page-movements-list #movementTypeFilter {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+}
+#page-movements-list #movementCategoryFilter {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+}
+#page-movements-list #monthFilter {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+}
+#page-movements-list #clearFilter {
+    grid-column: 2 !important;
+    grid-row: 3 !important;
+    white-space: nowrap !important;
+}
+@media (max-width: 420px) {
+    #page-movements-list .movement-filters {
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: auto !important;
+    }
+    #page-movements-list .movement-filters > * {
+        grid-column: 1 !important;
+        grid-row: auto !important;
+    }
+}
+
+
+/* =========================================================
+   CORREZIONE GRAFICA MIRATA - 10/11/2026
+   Basata sulla struttura effettiva di index.html e styles(5).css
+   ========================================================= */
+
+/* Registro: titolo e pulsante sulla stessa riga;
+   filtri a tutta larghezza nella riga successiva. */
+#page-movements-list .section-heading.list-heading {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto !important;
+    align-items: center !important;
+    justify-content: stretch !important;
+    column-gap: 16px !important;
+    row-gap: 16px !important;
+    width: 100% !important;
+    margin-bottom: 20px !important;
+}
+
+#page-movements-list .section-heading.list-heading > div:first-child {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+
+#page-movements-list #newMovementBtn {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    justify-self: end !important;
+    align-self: center !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 40px !important;
+    height: 40px !important;
+    margin: 0 !important;
+    padding: 0 15px !important;
+    border-radius: 9px !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 7px rgba(36, 118, 91, .14) !important;
+}
+
+#page-movements-list .section-heading.list-heading > .movement-filters {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto !important;
+    grid-auto-flow: row !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    gap: 10px 12px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#page-movements-list .movement-filters > * {
+    box-sizing: border-box !important;
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+}
+
+#page-movements-list #movementSearch {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+}
+
+#page-movements-list #movementTypeFilter {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+}
+
+#page-movements-list #movementCategoryFilter {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+}
+
+#page-movements-list #monthFilter {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+    text-align: center !important;
+    text-align-last: center !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#page-movements-list #clearFilter {
+    grid-column: 2 !important;
+    grid-row: 3 !important;
+    white-space: nowrap !important;
+    padding: 0 12px !important;
+}
+
+#page-movements-list #movementFrom,
+#page-movements-list #movementTo {
+    display: none !important;
+}
+
+/* Safari/iPad: centratura verticale e orizzontale dei campi mese e data. */
+#page-movements-list #monthFilter,
+#movementForm #date {
+    box-sizing: border-box !important;
+    line-height: normal !important;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#page-movements-list #monthFilter::-webkit-date-and-time-value,
+#movementForm #date::-webkit-date-and-time-value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#page-movements-list #monthFilter::-webkit-calendar-picker-indicator,
+#movementForm #date::-webkit-calendar-picker-indicator {
+    margin: 0 2px 0 8px;
+}
+
+/* Modulo: griglia a tre colonne regolari e campi della stessa altezza. */
+#page-movements-form {
+    padding: 24px !important;
+}
+
+#page-movements-form .section-heading {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    margin: 0 0 22px !important;
+}
+
+#movementForm.form-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    column-gap: 18px !important;
+    row-gap: 16px !important;
+    width: 100% !important;
+}
+
+#movementForm.form-grid > label {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+}
+
+#movementForm.form-grid > label > input,
+#movementForm.form-grid > label > select {
+    display: block !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+    padding: 0 14px !important;
+    border-radius: 11px !important;
+    font-size: 14px !important;
+    line-height: normal !important;
+}
+
+#movementForm #date {
+    text-align: center !important;
+    text-align-last: center !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#movementForm .wide {
+    grid-column: 1 / -1 !important;
+}
+
+#movementForm .form-footer {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+}
+
+#movementForm .form-footer .primary {
+    min-height: 44px !important;
+    height: 44px !important;
+    padding: 0 18px !important;
+    border-radius: 9px !important;
+    font-size: 13px !important;
+}
+
+/* Adattamento a schermi più stretti senza alterare il layout iPad. */
+@media (max-width: 760px) {
+    #page-movements-form {
+        padding: 18px !important;
+    }
+
+    #movementForm.form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 13px !important;
+    }
+
+    #movementForm.form-grid > label:nth-child(3),
+    #movementForm.form-grid > label.wide,
+    #movementForm.form-grid > .wide {
+        grid-column: 1 / -1 !important;
+    }
+}
+
+@media (max-width: 420px) {
+    #page-movements-list .section-heading.list-heading {
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: auto auto auto !important;
+    }
+
+    #page-movements-list .section-heading.list-heading > div:first-child {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+    }
+
+    #page-movements-list #newMovementBtn {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+        justify-self: start !important;
+    }
+
+    #page-movements-list .section-heading.list-heading > .movement-filters {
+        grid-column: 1 !important;
+        grid-row: 3 !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: auto !important;
+    }
+
+    #page-movements-list .movement-filters > * {
+        grid-column: 1 !important;
+        grid-row: auto !important;
+    }
+
+    #movementForm.form-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    #movementForm.form-grid > label {
+        grid-column: 1 / -1 !important;
+    }
+}
+
+
+/* Importazione Excel e stato movimenti */
+.import-excel-panel{margin:18px 0;padding:18px;border:1px solid #dce5e3;border-radius:14px;background:#fff}
+.import-excel-panel h3{margin:0 0 8px}.import-excel-panel p{color:#66736f;line-height:1.5}.excel-preview{margin-top:12px}.excel-summary{padding:14px;border-radius:10px;background:#f2f7f5}.excel-summary p{margin:6px 0}.movement-status{display:inline-block;padding:4px 8px;border-radius:20px;font-size:12px;white-space:nowrap}.movement-status.is-accounted{background:#e4f4ed;color:#176b4c}.movement-status.is-planned{background:#fff2d9;color:#8a5a00}.status-check{display:flex;align-items:center;gap:8px}.status-field{align-self:end}
+
+
+/* ======================================
+   ANALISI CONTI - NUOVA SEZIONE
+   ====================================== */
+.account-analysis-page { display: block; }
+.account-analysis-filters {
+    display: grid;
+    grid-template-columns: minmax(190px, 1.5fr) repeat(3, minmax(145px, 1fr)) auto;
+    gap: 12px;
+    align-items: end;
+    padding: 18px;
+    margin: 18px 0 24px;
+    background: #f5f9f7;
+    border: 1px solid #dce8e2;
+    border-radius: 14px;
+}
+.account-analysis-filters label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #52645d;
+    font-size: 13px;
+    font-weight: 650;
+}
+.account-analysis-filters input,
+.account-analysis-filters select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #d7e2dc;
+    border-radius: 9px;
+    background: #fff;
+    color: #263b33;
+    font: inherit;
+}
+.analysis-subheading {
+    margin: 22px 0 14px;
+}
+.analysis-subheading h3 {
+    margin: 0;
+    color: #263b33;
+    font-size: 20px;
+}
+.analysis-subheading p { margin: 6px 0 0; }
+.analysis-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 14px;
+    margin: 16px 0;
+}
+.analysis-kpi, .analysis-detail-card {
+    min-width: 0;
+    padding: 18px;
+    background: #fff;
+    border: 1px solid #e0e9e4;
+    border-radius: 13px;
+}
+.analysis-kpi span, .analysis-current-balance span {
+    display: block;
+    color: #788780;
+    font-size: 13px;
+    font-weight: 650;
+}
+.analysis-kpi strong {
+    display: block;
+    margin: 9px 0 5px;
+    font-size: clamp(19px,2.2vw,26px);
+    overflow-wrap: anywhere;
+}
+.analysis-kpi small, .analysis-current-balance small {
+    color: #84918b;
+    font-size: 12px;
+}
+.analysis-current-balance {
+    padding: 20px 22px;
+    color: #fff;
+    background: linear-gradient(115deg,#173f34,#28745a);
+    border-radius: 14px;
+}
+.analysis-current-balance span, .analysis-current-balance small { color: #d1e6dc; }
+.analysis-current-balance strong {
+    display: block;
+    margin: 7px 0;
+    font-size: clamp(25px,3vw,34px);
+    overflow-wrap: anywhere;
+}
+.analysis-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1.25fr);
+    gap: 14px;
+    margin: 14px 0;
+}
+.analysis-detail-card h4 {
+    margin: 0 0 16px;
+    color: #2d4038;
+    font-size: 16px;
+}
+.analysis-category-row { margin: 13px 0; }
+.analysis-category-row > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 7px;
+    font-size: 13px;
+}
+.analysis-category-row > div:first-child span { white-space: nowrap; }
+.analysis-track {
+    height: 9px;
+    overflow: hidden;
+    background: #edf3ef;
+    border-radius: 99px;
+}
+.analysis-track i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg,#23775c,#78b996);
+    border-radius: inherit;
+}
+.analysis-movements-card { margin-top: 14px; }
+.analysis-detail-card .table-wrap { overflow-x: auto; }
+.analysis-detail-card table, .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.analysis-detail-card th, .analysis-detail-card td,
+.comparison-table th, .comparison-table td {
+    padding: 11px 10px;
+    border-bottom: 1px solid #e8eeeb;
+    text-align: left;
+    white-space: nowrap;
+}
+.analysis-detail-card th, .comparison-table th {
+    color: #6e7f77;
+    background: #f3f8f5;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+.accounts-comparison { margin-bottom: 12px; }
+.comparison-total { margin-bottom: 14px; }
+.comparison-table td small {
+    color: #8a7660;
+    font-size: 11px;
+}
+.comparison-table td:first-child { white-space: normal; min-width: 155px; }
+@media (max-width: 900px) {
+    .account-analysis-filters { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .analysis-detail-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+    .account-analysis-filters { grid-template-columns: 1fr 1fr; padding: 13px; }
+    .account-analysis-filters label:first-child { grid-column: 1 / -1; }
+    .analysis-kpis { grid-template-columns: 1fr; }
+    .analysis-kpi { padding: 14px; }
+    .analysis-kpi strong { font-size: 22px; }
+    .analysis-current-balance { padding: 17px; }
+}
+
+/* CORREZIONE ALLINEAMENTO FILTRI ANALISI CONTI */
+
+.account-analysis-filters {
+    display: grid;
+    grid-template-columns:
+        minmax(220px, 1.35fr)
+        minmax(150px, 1fr)
+        minmax(150px, 1fr)
+        minmax(180px, 1.15fr)
+        auto;
+    gap: 14px;
+    align-items: end;
+}
+
+.account-analysis-filters label {
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 9px;
+}
+
+.account-analysis-filters input,
+.account-analysis-filters select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 48px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.account-analysis-filters input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+    text-align: left;
+}
+
+.account-analysis-filters button {
+    height: 48px;
+    white-space: nowrap;
+    align-self: end;
+}
+
+@media (max-width: 1000px) {
+    .account-analysis-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .account-analysis-filters button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .account-analysis-filters {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* FIX DEFINITIVO SPAZIATURA FILTRI ANALISI CONTI */
+
+.account-analysis-filters {
+    display: grid !important;
+    grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(0, 0.85fr)
+        minmax(0, 0.85fr)
+        minmax(0, 1fr)
+        minmax(100px, 110px) !important;
+    gap: 12px !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    align-items: end;
+}
+
+.account-analysis-filters > * {
+    min-width: 0 !important;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.account-analysis-filters label {
+    width: 100%;
+    min-width: 0 !important;
+}
+
+.account-analysis-filters input,
+.account-analysis-filters select {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.account-analysis-filters button {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 10px 5px;
+    font-size: 12px;
+    white-space: normal;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1000px) {
+    .account-analysis-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    .account-analysis-filters button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .account-analysis-filters {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+}
+
+
+/* ==========================================
+   BUDGET MENSILE
+   ========================================== */
+.budget-page { min-width: 0; }
+.budget-intro { margin: 8px 0 0; text-align: left; padding: 0; }
+.budget-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 18px;
+}
+.budget-toolbar label,
+.budget-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #52645d;
+    font-size: 13px;
+    font-weight: 650;
+    min-width: 0;
+}
+.budget-toolbar input,
+.budget-form input,
+.budget-form select {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid #d7e2dc;
+    border-radius: 9px;
+    background: #fff;
+    color: #263b33;
+    font: inherit;
+}
+.budget-toolbar input { width: 210px; }
+.budget-editor {
+    padding: 18px;
+    margin: 0 0 18px;
+    border: 1px solid #dce8e2;
+    border-radius: 14px;
+    background: #f7faf8;
+}
+.budget-editor h3,
+.budget-section-heading h3 {
+    margin: 0 0 14px;
+    color: #263b33;
+    font-size: 17px;
+}
+.budget-form {
+    display: grid;
+    grid-template-columns: minmax(180px, 1.2fr) minmax(160px, 1fr) auto auto;
+    gap: 12px;
+    align-items: end;
+}
+.budget-form button { min-height: 46px; white-space: nowrap; }
+.budget-message {
+    min-height: 18px;
+    margin: 9px 0 0;
+    color: #24765b;
+    font-size: 12px;
+}
+.budget-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 18px 0 26px;
+}
+.budget-summary-card {
+    min-width: 0;
+    padding: 17px;
+    border: 1px solid #e0e9e4;
+    border-radius: 13px;
+    background: #fff;
+}
+.budget-summary-card span {
+    display: block;
+    color: #788780;
+    font-size: 12px;
+    font-weight: 650;
+}
+.budget-summary-card strong {
+    display: block;
+    margin-top: 9px;
+    color: #24765b;
+    font-size: clamp(18px, 2vw, 24px);
+    overflow-wrap: anywhere;
+}
+.budget-warning-text { color: #a66a16 !important; }
+.budget-section-heading { margin: 24px 0 12px; }
+.budget-section-heading h3 { margin-bottom: 5px; }
+.budget-section-heading p { margin: 0; padding: 0; text-align: left; }
+.budget-category-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+}
+.budget-category-card {
+    min-width: 0;
+    padding: 17px;
+    border: 1px solid #e0e9e4;
+    border-radius: 13px;
+    background: #fff;
+}
+.budget-category-top,
+.budget-category-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.budget-category-top > div:first-child { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.budget-category-top strong { color: #263b33; }
+.budget-category-top small { color: #788780; font-size: 11px; }
+.budget-category-values { text-align: right; white-space: nowrap; }
+.budget-category-values strong { display: block; font-size: 16px; }
+.budget-category-values span { color: #84918b; font-size: 11px; }
+.budget-progress {
+    height: 10px;
+    margin: 14px 0 9px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: #edf3ef;
+}
+.budget-progress span { display: block; height: 100%; border-radius: inherit; background: #398b69; }
+.budget-progress.warning span { background: #d49a35; }
+.budget-progress.over span { background: #bd594e; }
+.budget-category-bottom { color: #788780; font-size: 11px; }
+.budget-category-bottom strong { font-size: 12px; }
+.budget-row-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+}
+.budget-row-actions button { padding: 7px 11px; font-size: 12px; }
+.budget-delete {
+    border: 1px solid #f0d9d5;
+    border-radius: 8px;
+    background: #fff2ef;
+    color: #a7463d;
+    font-weight: 650;
+    cursor: pointer;
+}
+.budget-empty {
+    padding: 20px;
+    border: 1px dashed #d5e2da;
+    border-radius: 12px;
+    color: #788780;
+    text-align: center;
+    background: #fbfdfb;
+}
+.budget-year-summary {
+    overflow: hidden;
+    border: 1px solid #e0e9e4;
+    border-radius: 12px;
+    background: #fff;
+}
+.budget-year-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.budget-year-table th,
+.budget-year-table td { padding: 12px; border-bottom: 1px solid #e8eeeb; text-align: left; white-space: nowrap; }
+.budget-year-table th { color: #6e7f77; background: #f3f8f5; font-size: 11px; text-transform: uppercase; }
+@media (max-width: 900px) {
+    .budget-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .budget-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .budget-form button { width: 100%; }
+}
+@media (max-width: 600px) {
+    .budget-category-list { grid-template-columns: 1fr; }
+    .budget-toolbar { justify-content: stretch; }
+    .budget-toolbar label, .budget-toolbar input { width: 100%; }
+    .budget-form { grid-template-columns: 1fr; }
+    .budget-summary-card { padding: 13px; }
+}
+
+
+/* PAOLO SPESE - ALLINEAMENTO IMPORTI RIEPILOGO BUDGET */
+.budget-summary-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 128px;
+}
+
+.budget-summary-card span {
+    min-height: 32px;
+    line-height: 16px;
+}
+
+.budget-summary-card strong {
+    margin-top: 9px;
+    line-height: 1.25;
+}
+
+@media (max-width: 600px) {
+    .budget-summary-card {
+        min-height: 116px;
+    }
+    .budget-summary-card span {
+        min-height: 32px;
+    }
+}
